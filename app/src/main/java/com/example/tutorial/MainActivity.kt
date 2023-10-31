@@ -3,6 +3,7 @@ package com.example.tutorial
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -11,31 +12,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var FragmentSecond: Fragment
     private lateinit var FragmentThird: Fragment
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var viewPager: ViewPager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FragmentOne = FragmentOne()
-        FragmentSecond = FragmentSecond()
-        FragmentThird = FragmentThird()
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        setCurrentFragment(FragmentOne)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.miHome -> setCurrentFragment(FragmentOne)
-                R.id.miChat -> setCurrentFragment(FragmentSecond)
-                R.id.miProfile -> setCurrentFragment(FragmentThird)
+        val images = listOf(
+            R.drawable.photo1,
+            R.drawable.photo2,
+            R.drawable.photo3
+        )
 
-            }
-            true
-        }
-    }
-    private fun setCurrentFragment(fragment: Fragment)=
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fragment)
-            commit()
-        }
+        val adapter = ViewPagerAdapter(images)
+        viewPager.adapter = adapter
 
+
+}
 }
